@@ -10,8 +10,7 @@ var minSetSize = function(arr) {
     }
     values= Object.values(frequency)
     values.sort((a,b)=> b-a);
-    let count=values[0]
-    // if(values[0]>=half) return 1;
+    
     for(var i=0; i<values.length; i++){
         sum += values[i]
         if(sum>=half) break;
