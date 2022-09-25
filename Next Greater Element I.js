@@ -1,17 +1,11 @@
 var nextGreaterElement = function(nums1, nums2) {
-    var output = [];
-    let indx;
-    let nextGreater;
-    for(let x of nums1){
-        indx = nums2.indexOf(x);
-        nextGreater = -1;
-        for(let i=indx+1; i<nums2.length; i++){
-            if(nums2[i] > x){
-                nextGreater = nums2[i];
-                break;
-            }
-        }
-        output.push(nextGreater);
+  const map = {};
+  const stack = [];
+  nums2.forEach(n => {
+    while (stack.length > 0 && stack[stack.length - 1] < n) {
+      map[stack.pop()] = n;
     }
-    return output
+    stack.push(n);
+  });
+  return nums1.map(n => map[n] || -1);
 };
