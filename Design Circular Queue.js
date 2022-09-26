@@ -14,7 +14,6 @@ MyCircularQueue.prototype.enQueue = function(value) {
 
 MyCircularQueue.prototype.deQueue = function() {
     if(this.isEmpty()) return false;
-    var temp = this.nums[this.front];
     if(this.front === this.rear){
         this.front = -1;
         this.rear = -1;
