@@ -1,9 +1,9 @@
 class Solution:
     def isAlienSorted(self, words: List[str], order: str) -> bool:
-        dict = {}
+        orderMap = {}
 
         for i in range(len(order)):
-            dict[order[i]] = i
+            orderMap[order[i]] = i
         
         def is_Greater(word1, word2):
             if word1 == word2:
@@ -16,7 +16,7 @@ class Solution:
             for i in range(n):
                 if word1[i] == word2[i]:
                     continue
-                if dict[word1[i]] > dict[word2[i]]:
+                if orderMap[word1[i]] > orderMap[word2[i]]:
                     return True
                 return False
 
