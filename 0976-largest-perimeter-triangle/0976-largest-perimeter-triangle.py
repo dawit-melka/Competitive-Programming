@@ -7,7 +7,7 @@ class Solution:
             b = nums[i+1]
             c = nums[i+2]
 
-            if a+b > c and b+c > a and a+c > b:
+            if c+b > a:
                 return a+b+c
 
         return 0
