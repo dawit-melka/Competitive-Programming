@@ -1,13 +1,12 @@
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        ROWS = len(matrix)
-        COLS = len(matrix[0])
+        ROWS, COLS = len(matrix), len(matrix[0])
         nextMove = {"right":"down", "down":"left", "left":"up", "up":"right"}
         move = {"right" : [0, 1], "down" : [1, 0], "left" : [0, -1], "up" : [-1, 0]}
         currMove = "right"
-        currRow, currCol = 0, 0
         visited = set()
         spiralOrder = []
+        currRow, currCol = 0, 0
 
         while (len(spiralOrder) < ROWS*COLS):
             spiralOrder.append(matrix[currRow][currCol])
@@ -20,9 +19,7 @@ class Solution:
 
             if outOfRange or (nextRow, nextCol) in visited:
                 currMove = nextMove[currMove]
-                inext, jnext = move[currMove]
-                i = inext
-                j = jnext
+                i, j = move[currMove]
             
             currRow += i
             currCol += j
