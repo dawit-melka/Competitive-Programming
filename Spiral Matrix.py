@@ -20,11 +20,11 @@ class Solution:
 
             if outOfRange or (nextRow, nextCol) in visited:
                 currMove = nextMove[currMove]
-                inxt, jnxt = move[currMove]
-                currRow += inxt
-                currCol += jnxt
-            else:
-                currRow += i
-                currCol += j
+                inext, jnext = move[currMove]
+                i = inext
+                j = jnext
+            
+            currRow += i
+            currCol += j
 
         return spiralOrder
