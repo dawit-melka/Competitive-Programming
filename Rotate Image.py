@@ -3,9 +3,7 @@ class Solution:
         ROWS, COLS = len(matrix), len(matrix[0])
         for r in range(ROWS):
             for c in range(r, COLS):
-                temp = matrix[r][c]
-                matrix[r][c] = matrix[c][r]
-                matrix[c][r] = temp
+                matrix[r][c], matrix[c][r] = matrix[c][r], matrix[r][c]
 
         for row in matrix:
             row.reverse()
