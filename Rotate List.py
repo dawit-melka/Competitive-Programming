@@ -2,26 +2,27 @@ class Solution:
     def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         if k == 0 or not head:
             return head
-        nodes = []
+        n = 0
+        curr, lastNode = head, None
 
-        while head:
-            nodes.append(head)
-            head = head.next
+        while curr:
+            n += 1
+            lastNode = curr
+            curr = curr.next
 
-        def flip(i1, i2):
-            while i1 < i2:
-                nodes[i1], nodes[i2] = nodes[i2], nodes[i1]
-                i1 += 1
-                i2 -= 1
+        k %=  n
+        if k == 0:
+            return head
 
-        n = len(nodes)
-        k = k % n
-        flip(0, n - 1)
-        flip(0, k - 1)
-        flip(k, n - 1)
-        nodes.append(None)
+        curr = head
+        gap = n - k-1
 
-        for i in range(n):
-            nodes[i].next = nodes[i+1]
-        
-        return nodes[0]
+        while gap:
+            curr = curr.next
+            gap -= 1
+
+        newHead = curr.next
+        lastNode.next = head
+        curr.next = None
+
+        return newHead
