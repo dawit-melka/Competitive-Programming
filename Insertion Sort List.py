@@ -1,15 +1,15 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def insertionSortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         dummy = ListNode(-5002, head)
-        n = 0
-        curr = head
-        while curr:
-            n += 1
-            curr = curr.next
         curr_prev = dummy
-        for i in range(n+1):
-            if not curr_prev or not curr_prev.next:
-                break
+        i = 0
+
+        while curr_prev and curr_prev.next:
             curr = curr_prev.next
             curr_prev.next = curr_prev.next.next
             curr.next = None
@@ -26,5 +26,7 @@ class Solution:
             for _ in range(i+1):
                 temp = temp.next
             curr_prev = temp
+            i += 1
 
         return dummy.next
+        
