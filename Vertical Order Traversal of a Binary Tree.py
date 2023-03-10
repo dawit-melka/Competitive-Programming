@@ -1,25 +1,17 @@
 class Solution:
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
-        collected = {}
+        collected = defaultdict(list)
         self.traverse(root, collected, 0, 0)
-        cols = [t[1] for t in sorted(collected.items(), key = lambda x: x[0])]
-        res = []
+        collected = list(dict(sorted(collected.items())).values())
+        
+        for i in range(len(collected)):
+            collected[i] = [val for (j, val) in sorted(collected[i])]
 
-        for currCol in cols:
-            curr = [t[1] for t in sorted(currCol.items(), key = lambda x: x[0])]
-            collectCol = []
-            for arr in curr:
-                collectCol += sorted(arr)
-                
-            res.append(collectCol)
-        return res
+        return collected
 
     def traverse(self, node, collected, row, col):
-        if not node: return 
-        collected[col] = collected.get(col, {})
-        collected[col][row] = collected[col].get(row, [])
-        collected[col][row].append(node.val)
+        if not node: return
 
+        collected[col].append((row, node.val))
         self.traverse(node.left, collected, row + 1, col - 1)
         self.traverse(node.right, collected, row + 1, col + 1)
-    
