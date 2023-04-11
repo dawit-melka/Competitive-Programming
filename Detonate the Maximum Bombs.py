@@ -17,25 +17,26 @@ class Solution:
                     adj_list[i].append(j)                
 
         visited = set()
+        visited2 = set()
 
         def dfs(curr_bomb):
-            if curr_bomb in visited:
+            if curr_bomb in visited2:
                 return 0
 
+            visited2.add(curr_bomb)
             visited.add(curr_bomb)
             curr_count = 0
 
             for nei in adj_list[curr_bomb]:
                 curr_count += dfs(nei)
-            
 
             return 1 + curr_count
 
+
         result = 0   
         for i in range(len(bombs)):
-            visited = set()
-            result = max(result, dfs(i))
+            if i not in visited:
+                visited2 = set()
+                result = max(result, dfs(i))
 
         return result
-
-
