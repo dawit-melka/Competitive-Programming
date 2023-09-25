@@ -1,0 +1,15 @@
+class Solution:
+    def countArrangement(self, n: int) -> int:
+        self.count = 0
+        nums = [i for i in range(1, n+1)]
+        def permute(index):
+            if index == len(nums):
+                self.count += 1
+            for i in range(index, len(nums)):
+                nums[i], nums[index] = nums[index], nums[i]
+                if nums[index]%(index+1) == 0 or (index+1)%nums[index]==0:
+                    permute(index+1)
+                nums[i], nums[index] = nums[index], nums[i]
+
+        permute(0)
+        return self.count
