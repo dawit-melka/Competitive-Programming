@@ -1,0 +1,15 @@
+class Solution:
+    def bestTeamScore(self, scores: List[int], ages: List[int]) -> int:
+      pairs = sorted(zip(scores, ages))
+      memo = [[-1]*len(ages) for _ in range(len(ages))]
+      def dp(prevChosenIdx, i):
+        if i == len(scores):
+          return 0
+        if memo[prevChosenIdx+1][i] == -1:
+          if prevChosenIdx < 0 or not(pairs[i][1] < pairs[prevChosenIdx][1] and pairs[i][0] > pairs[prevChosenIdx][0]):
+            memo[prevChosenIdx+1][i]= max(pairs[i][0] + dp(i, i+1), dp(prevChosenIdx, i+1))
+          else:
+            memo[prevChosenIdx+1][i] = dp(prevChosenIdx, i+1)
+        return memo[prevChosenIdx+1][i]
+
+      return dp(-1, 0) 
