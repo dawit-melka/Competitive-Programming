@@ -1,0 +1,14 @@
+class Solution:
+    def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
+        rows = len(dungeon)
+        cols = len(dungeon[0])
+        dp = [[float("-inf")]*(cols+1 )for _ in range(rows+1)]
+        dp[-1][-2] = 0
+        dp[-2][-1] = 0
+
+
+        for r in range(rows-1, -1, -1):
+            for c in range(cols-1, -1, -1):
+                dp[r][c] = min(0, dungeon[r][c] + max(dp[r+1][c], dp[r][c+1]))
+
+        return 1 - dp[0][0]
