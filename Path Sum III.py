@@ -1,19 +1,30 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
-        count_paths = 0
+        if not root:
+            return 0
+        prevSum = defaultdict(int)
+        prevSum[0] = 1
+        result = 0
+        
+        def dfs(node, currSum):
+            nonlocal result
+            currSum += node.val
+            result += prevSum[currSum - targetSum]
+            prevSum[currSum] += 1
 
-        def traverse(node, pathSum, runningSum):
-            nonlocal count_paths
-            if not node: return
-            runningSum += node.val
-            count_paths += pathSum[runningSum - targetSum]
+            if node.left:
+                dfs(node.left, currSum)
+            if node.right:
+                dfs(node.right, currSum)
             
-            pathSum[runningSum] += 1
-            traverse(node.left, pathSum, runningSum)
-            traverse(node.right, pathSum, runningSum)
-            pathSum[runningSum] -= 1
+            prevSum[currSum] -= 1        
+            currSum -= node.val
 
-
-        traverse(root, Counter([0]), 0)
-
-        return count_paths
+        dfs(root, 0)
+        return result
