@@ -1,3 +1,4 @@
+# Approach: 1
 class Node:
     def __init__(self, currVal, minVal):
         self.val = currVal
@@ -28,6 +29,29 @@ class MinStack:
 
     def getMin(self) -> int:
         return self.first.min
+        
+
+# Approach: 2
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.decending = []
+
+    def push(self, val: int) -> None:
+        if not self.decending or val < self.decending[-1][0]:
+            self.decending.append((val, len(self.stack)))
+        self.stack.append(val)
+
+    def pop(self) -> None:
+        currVal = self.stack.pop()
+        if self.decending[-1][1] == len(self.stack):
+            self.decending.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.decending[-1][0]
         
 
 
